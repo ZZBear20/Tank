@@ -17,11 +17,12 @@ import java.awt.event.WindowEvent;
 
 public class TankFrame extends Frame {
 
-    Tank myTank = new Tank(200, 200, Dir.DOWN);
+    Tank myTank = new Tank(200, 200, Dir.DOWN, this);
     Bullet b = new Bullet(300, 300, Dir.DOWN);
+    static final int GAME_WIDTH = 800, GAME_HEIGHT = 600;
 
     public TankFrame() {
-        setSize(800, 600);
+        setSize(GAME_WIDTH, GAME_HEIGHT);
         setResizable(false);
         setTitle("Tank War");
         setVisible(true);
@@ -90,6 +91,9 @@ public class TankFrame extends Frame {
                 case KeyEvent.VK_DOWN:
                     bD = false;
                     break;
+                case KeyEvent.VK_CONTROL:
+                    myTank.fire();
+                    break;
                 default:
                     break;
             }
@@ -98,12 +102,14 @@ public class TankFrame extends Frame {
 
         private void setMainTankDir() {
             if (!bL && !bR && !bU && !bD) myTank.setMoving(false);
-            else myTank.setMoving(true);
+            else {
+                myTank.setMoving(true);
 
-            if (bL) myTank.setDir(Dir.LEFT);
-            if (bR) myTank.setDir(Dir.RIGHT);
-            if (bU) myTank.setDir(Dir.UP);
-            if (bD) myTank.setDir(Dir.DOWN);
+                if (bL) myTank.setDir(Dir.LEFT);
+                if (bR) myTank.setDir(Dir.RIGHT);
+                if (bU) myTank.setDir(Dir.UP);
+                if (bD) myTank.setDir(Dir.DOWN);
+            }
         }
     }
 }
