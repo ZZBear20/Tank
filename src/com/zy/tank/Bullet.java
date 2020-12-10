@@ -1,5 +1,6 @@
 package com.zy.tank;
 
+import java.awt.Color;
 import java.awt.Graphics;
 
 /**
@@ -10,37 +11,30 @@ import java.awt.Graphics;
  * @since 1.0.0
  */
 
-public class Tank {
+public class Bullet {
 
-    private static final int SPEED = 5;
+    private static final int SPEED = 10;
+    public static final int WIDTH = 30, HEIGHT = 30;
 
-    private Dir dir = Dir.DOWN;
     private int x, y;
-    private boolean moving = false;
+    private Dir dir;
 
-    public void setMoving(boolean moving) {
-        this.moving = moving;
-    }
-
-    public void setDir(Dir dir) {
-        this.dir = dir;
-    }
-
-
-    public Tank(int x, int y, Dir dir) {
-        super();
+    public Bullet(int x, int y, Dir dir) {
         this.x = x;
         this.y = y;
         this.dir = dir;
     }
 
     public void paint(Graphics g) {
-        g.fillRect(x, y, 50, 50);
+        Color c = g.getColor();
+        g.setColor(Color.red);
+        g.fillOval(x, y, WIDTH, HEIGHT);
+        g.setColor(c);
+
         move();
     }
 
     private void move() {
-        if (!moving) return;
         switch (dir) {
             case LEFT:
                 x -= SPEED;
